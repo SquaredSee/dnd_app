@@ -8,6 +8,6 @@ module.exports = {
     "no-console": "off",
     "no-underscore-dangle": "off",
     "no-unused-vars": "off",  // doesn't play well with react :(
-    "prefer-destructuring": "off",
+    // "prefer-destructuring": "off",
   }
 };
