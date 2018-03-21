@@ -1,8 +1,7 @@
 import React from 'react';
-import './Entry.css';
 
 const Entry = (props) => (
-  <div className="card entry">
+  <div className="card mb-2">
     <div className="card-body">{props.name} - {props.score}</div>
   </div>
 );
