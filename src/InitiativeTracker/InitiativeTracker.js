@@ -13,7 +13,7 @@ class InitiativeTracker extends Component {
         // { name: 'test4', score: 1, id: 4 },
       ],
       inputName: '',
-      inputScore: 0,
+      inputScore: '',
     };
 
     this.style = {
