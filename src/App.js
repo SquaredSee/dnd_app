@@ -1,6 +1,5 @@
 import React from 'react';
 import InitiativeTracker from './InitiativeTracker/InitiativeTracker';
-import ExampleComponent from './ExampleComponent/ExampleComponent';
 // import './App.css';
 
 // class App extends Component {
@@ -16,7 +15,6 @@ import ExampleComponent from './ExampleComponent/ExampleComponent';
 const App = () => (
   <div className="container">
     <InitiativeTracker />
-    <ExampleComponent show={true} />
   </div>
 );
 
