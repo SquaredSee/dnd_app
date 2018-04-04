@@ -1,9 +1,10 @@
 import PropTypes from 'prop-types';
 import React from 'react';
 
-const classes = ['list-group-item'];
+// const classes = ['list-group-item'];
 
 const Entry = (props) => {
+  const classes = ['list-group-item'];
   if (props.active) {
     classes.push('active');
   }

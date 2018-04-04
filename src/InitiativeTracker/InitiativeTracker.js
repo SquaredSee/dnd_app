@@ -15,6 +15,7 @@ class InitiativeTracker extends Component {
       inputName: '',
       inputScore: '',
       inputId: 1,
+      activeIndex: null,
     };
 
     this.style = {
@@ -34,7 +35,6 @@ class InitiativeTracker extends Component {
       name,
       score,
       id: this.state.inputId,
-      active: false,
     };
     entries.push(newEntry);
 
@@ -46,9 +46,41 @@ class InitiativeTracker extends Component {
     console.log(`New entry added: ${JSON.stringify(newEntry)}`);
   }
 
+  beginCombat = () => {
+    // set the active entry to the first index if combat is not started
+    // and entries is not empty
+    if (this.state.activeIndex === null && this.state.entries.length > 0) {
+      console.log('combat has begun');
+      this.setState({ activeIndex: 0 });
+    }
+  }
+
+  endCombat = () => {
+    // set the active entry to the first index if combat is not started
+    // and entries is not empty
+    if (this.state.activeIndex !== null) {
+      console.log('combat has ended');
+      this.setState({ activeIndex: null });
+    }
+  }
+
+  advanceCombat = () => {
+    // advance combat by 1
+    const index = this.state.activeIndex + 1;
+    if (index < this.state.entries.length) {
+      this.setState({ activeIndex: index });
+    }
+    else if (index >= this.state.entries.length) {
+      this.setState({ activeIndex: 0 });
+    }
+  }
+
   handleEntrySubmit = (e) => {
     e.preventDefault();
-    this.addEntry(this.state.inputName, this.state.inputScore);
+    // only allow adding entries if combat is not running
+    if (this.state.activeIndex === null) {
+      this.addEntry(this.state.inputName, this.state.inputScore);
+    }
   }
 
   handleInputChange = (e) => {
@@ -61,29 +93,47 @@ class InitiativeTracker extends Component {
   }
 
   render() {
+    const combatControls = this.state.activeIndex === null ? (
+      <div className="mb-2">
+        <button className="btn btn-success mr-2" onClick={this.beginCombat}>Begin Combat!</button>
+      </div>
+    ) : (
+      <div className="mb-2">
+        <button className="btn btn-danger mr-2" onClick={this.endCombat}>End Combat</button>
+        <button className="btn" onClick={this.advanceCombat}><i className="fas fa-arrow-down" /> Advance</button>
+      </div>
+    );
+
     return (
       <div className="card" style={this.style}>
         <div className="card-body">
           <h5 className="card-title">Initiative Tracker</h5>
-          <form onSubmit={this.handleEntrySubmit} className="form-inline mb-2">
-            <div className="form-group mr-2">
-              <label htmlFor="inputName" className="sr-only">Name:</label>
-              <input type="text" name="inputName" id="inputName" className="form-control"
-                placeholder="Entry Name" value={this.state.inputName} onChange={this.handleInputChange} required />
-            </div>
+            <form onSubmit={this.handleEntrySubmit} className="form-inline">
+              <div className="form-group mb-2 mr-2">
+                <label htmlFor="inputName" className="sr-only">Name</label>
+                <input type="text" name="inputName" id="inputName" className="form-control"
+                  placeholder="Entry Name" value={this.state.inputName} onChange={this.handleInputChange} required />
+              </div>
 
-            <div className="form-group mr-2">
-              <label htmlFor="inputScore" className="sr-only">Initiative Score:</label>
-              <input type="number" name="inputScore" id="inputScore" className="form-control"
-                placeholder="Initiative Score" value={this.state.inputScore} onChange={this.handleInputChange} required />
-            </div>
+              <div className="form-group mb-2 mr-2">
+                <label htmlFor="inputScore" className="sr-only">Initiative Score</label>
+                <input type="number" name="inputScore" id="inputScore" className="form-control"
+                  placeholder="Initiative Score" value={this.state.inputScore} onChange={this.handleInputChange} required />
+              </div>
 
-            <button type="submit" className="btn btn-primary">Submit</button>
-          </form>
+              <button type="submit" className="btn btn-primary mb-2">Submit</button>
+            </form>
+
+            {combatControls}
 
           <ul className="list-group">
-            {this.state.entries.map((entry) => (
-              <Entry name={entry.name} score={entry.score} key={entry.id} active={entry.active} />
+            {this.state.entries.map((entry, i) => (
+              <Entry
+                name={entry.name}
+                score={entry.score}
+                key={entry.id}
+                active={i === this.state.activeIndex}
+              />
             ))}
           </ul>
         </div>
