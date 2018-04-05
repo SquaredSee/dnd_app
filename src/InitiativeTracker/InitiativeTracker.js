@@ -46,6 +46,18 @@ class InitiativeTracker extends Component {
     // sort entries high to low
     entries.sort((a, b) => b.score - a.score);
 
+    if (this.state.activeIndex !== null && entries.indexOf(newEntry) <= this.state.activeIndex) {
+      // increment active index to maintain correct position in initiative order
+      this.setState({
+        entries,
+        inputId: this.state.inputId + 1,
+        activeIndex: this.state.activeIndex + 1
+      });
+    }
+    else {
+      this.setState({ entries, inputId: this.state.inputId + 1 });
+    }
+
     // update the entries state and increment the inputId by 1
     this.setState({ entries, inputId: this.state.inputId + 1 });
     console.log(`New entry added: ${JSON.stringify(newEntry)}`);
@@ -54,9 +66,23 @@ class InitiativeTracker extends Component {
   deleteEntry = (entry) => {
     const entries = [...this.state.entries];
     const index = entries.indexOf(entry);
+
     if (index > -1) {
+      // remove item from list
       entries.splice(index, 1);
-      this.setState({ entries });
+
+      if (this.state.activeIndex >= entries.length || this.state.activeIndex > index) {
+        // move index backward if it is higher than the length orhigher than the deleted index
+        this.setState({ entries, activeIndex: this.state.activeIndex - 1 });
+      }
+      else if (entries.length <= 0) {
+        // if there are no more entries, combat is over
+        this.setState({ entries, activeIndex: null });
+        console.log('No entries remaining, combat has ended');
+      }
+      else {
+        this.setState({ entries });
+      }
       console.log(`deleted ${JSON.stringify(entry)}`);
     }
     else {
@@ -95,10 +121,7 @@ class InitiativeTracker extends Component {
 
   handleEntrySubmit = (e) => {
     e.preventDefault();
-    // only allow adding entries if combat is not running
-    if (this.state.activeIndex === null) {
-      this.addEntry(this.state.inputName, this.state.inputScore);
-    }
+    this.addEntry(this.state.inputName, this.state.inputScore);
   }
 
   handleInputChange = (e) => {
