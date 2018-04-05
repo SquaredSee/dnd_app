@@ -81,7 +81,7 @@ class InitiativeTracker extends Component {
           // move index backward if it is higher than the length orhigher than the deleted index
           this.setState({ entries, activeIndex: this.state.activeIndex - 1 });
         }
-        else if (this.state.activeIndex === index) {
+        else if (this.state.activeIndex <= index) {
           this.setState({ entries });
         }
       }
