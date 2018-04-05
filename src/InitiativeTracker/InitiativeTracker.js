@@ -95,7 +95,7 @@ class InitiativeTracker extends Component {
   render() {
     const combatControls = this.state.activeIndex === null ? (
       <div className="mb-2">
-        <button className="btn btn-success mr-2" onClick={this.beginCombat}>Begin Combat!</button>
+        <button className="btn btn-success mt-2 mr-2" onClick={this.beginCombat}>Begin Combat!</button>
       </div>
     ) : (
       <div className="mb-2">
