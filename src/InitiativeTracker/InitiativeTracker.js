@@ -71,14 +71,19 @@ class InitiativeTracker extends Component {
       // remove item from list
       entries.splice(index, 1);
 
-      if (this.state.activeIndex >= entries.length || this.state.activeIndex > index) {
-        // move index backward if it is higher than the length orhigher than the deleted index
-        this.setState({ entries, activeIndex: this.state.activeIndex - 1 });
-      }
-      else if (entries.length <= 0) {
-        // if there are no more entries, combat is over
-        this.setState({ entries, activeIndex: null });
-        console.log('No entries remaining, combat has ended');
+      if (this.state.activeIndex !== null) {
+        if (this.state.activeIndex >= entries.length || this.state.activeIndex > index) {
+          // move index backward if it is higher than the length orhigher than the deleted index
+          this.setState({ entries, activeIndex: this.state.activeIndex - 1 });
+        }
+        else if (this.state.activeIndex === index) {
+          this.setState({ entries });
+        }
+        else if (entries.length <= 0) {
+          // if there are no more entries, combat is over
+          this.setState({ entries, activeIndex: null });
+          console.log('No entries remaining, combat has ended');
+        }
       }
       else {
         this.setState({ entries });
