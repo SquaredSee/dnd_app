@@ -7,14 +7,14 @@ class InitiativeTracker extends Component {
 
     this.state = {
       entries: [
-        { name: 'test1', score: 4, id: 1 },
+        { name: 'test1', score: '4', id: 1 },
         // { name: 'test2', score: 6, id: 2 },
         // { name: 'test3', score: 2, id: 3 },
         // { name: 'test4', score: 1, id: 4 },
       ],
       inputName: '',
       inputScore: '',
-      inputId: 1,
+      inputId: 2,
       activeIndex: null,
     };
 
@@ -26,6 +26,11 @@ class InitiativeTracker extends Component {
     // This binding is necessary to make `this` work in the callback
     this.handleEntrySubmit = this.handleEntrySubmit.bind(this);
     this.handleInputChange = this.handleInputChange.bind(this);
+    this.addEntry = this.addEntry.bind(this);
+    this.beginCombat = this.beginCombat.bind(this);
+    this.endCombat = this.endCombat.bind(this);
+    this.advanceCombat = this.advanceCombat.bind(this);
+    // this.deleteEntry = this.deleteEntry.bind(this);
   }
 
   addEntry = (name, score) => {
@@ -44,6 +49,19 @@ class InitiativeTracker extends Component {
     // update the entries state and increment the inputId by 1
     this.setState({ entries, inputId: this.state.inputId + 1 });
     console.log(`New entry added: ${JSON.stringify(newEntry)}`);
+  }
+
+  deleteEntry = (entry) => {
+    const entries = [...this.state.entries];
+    const index = entries.indexOf(entry);
+    if (index > -1) {
+      entries.splice(index, 1);
+      this.setState({ entries });
+      console.log(`deleted ${JSON.stringify(entry)}`);
+    }
+    else {
+      console.error(`failed to remove ${JSON.stringify(entry)} from entries`);
+    }
   }
 
   beginCombat = () => {
@@ -131,6 +149,7 @@ class InitiativeTracker extends Component {
                 score={entry.score}
                 key={entry.id}
                 active={i === this.state.activeIndex}
+                delete={this.deleteEntry.bind(this, entry)}
               />
             ))}
           </ul>

@@ -1,0 +1,10 @@
+.trash_icon_hide .trash_icon {
+    transform: translateX(75%);
+    transition: all 0.15s;
+    opacity: 0;
+}
+
+.trash_icon_hide:hover .trash_icon {
+    transform: translateX(0);
+    opacity: 1;
+}
