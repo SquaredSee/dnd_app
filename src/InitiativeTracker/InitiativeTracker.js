@@ -7,10 +7,10 @@ class InitiativeTracker extends Component {
 
     this.state = {
       entries: [
-        // { name: 'test1', score: 4, id: 1 },
+        { name: 'test1', score: 4, id: 1 },
         // { name: 'test2', score: 6, id: 2 },
         // { name: 'test3', score: 2, id: 3 },
-        { name: 'test4', score: 1, id: 4 },
+        // { name: 'test4', score: 1, id: 4 },
       ],
       inputName: '',
       inputScore: '',
