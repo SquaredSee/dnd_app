@@ -4,7 +4,7 @@
     opacity: 0;
 }
 
-.trash_icon_hide:hover .trash_icon {
+.trash_icon_hide:hover .trash_icon, .trash_icon_hide:active .trash_icon {
     transform: translateX(0);
     opacity: 1;
 }
