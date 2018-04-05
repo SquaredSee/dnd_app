@@ -108,23 +108,21 @@ class InitiativeTracker extends Component {
       <div className="card" style={this.style}>
         <div className="card-body">
           <h5 className="card-title">Initiative Tracker</h5>
-            <form onSubmit={this.handleEntrySubmit} className="form-inline">
-              <div className="form-group mb-2 mr-2">
-                <label htmlFor="inputName" className="sr-only">Name</label>
-                <input type="text" name="inputName" id="inputName" className="form-control"
-                  placeholder="Entry Name" value={this.state.inputName} onChange={this.handleInputChange} required />
-              </div>
+          <form onSubmit={this.handleEntrySubmit} className="form-inline">
+            <div className="form-group mb-2 mr-2">
+              <label htmlFor="inputName" className="sr-only">Name</label>
+              <input type="text" name="inputName" id="inputName" className="form-control"
+                placeholder="Entry Name" value={this.state.inputName} onChange={this.handleInputChange} required />
+            </div>
+            <div className="form-group mb-2 mr-2">
+              <label htmlFor="inputScore" className="sr-only">Initiative Score</label>
+              <input type="number" name="inputScore" id="inputScore" className="form-control"
+                placeholder="Initiative Score" value={this.state.inputScore} onChange={this.handleInputChange} required />
+            </div>
+            <button type="submit" className="btn btn-primary mb-2">Submit</button>
+          </form>
 
-              <div className="form-group mb-2 mr-2">
-                <label htmlFor="inputScore" className="sr-only">Initiative Score</label>
-                <input type="number" name="inputScore" id="inputScore" className="form-control"
-                  placeholder="Initiative Score" value={this.state.inputScore} onChange={this.handleInputChange} required />
-              </div>
-
-              <button type="submit" className="btn btn-primary mb-2">Submit</button>
-            </form>
-
-            {combatControls}
+          {this.state.entries.length > 0 && combatControls}
 
           <ul className="list-group">
             {this.state.entries.map((entry, i) => (
