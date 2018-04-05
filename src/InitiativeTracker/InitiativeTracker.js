@@ -10,7 +10,7 @@ class InitiativeTracker extends Component {
         // { name: 'test1', score: 4, id: 1 },
         // { name: 'test2', score: 6, id: 2 },
         // { name: 'test3', score: 2, id: 3 },
-        // { name: 'test4', score: 1, id: 4 },
+        { name: 'test4', score: 1, id: 4 },
       ],
       inputName: '',
       inputScore: '',
@@ -99,8 +99,8 @@ class InitiativeTracker extends Component {
       </div>
     ) : (
       <div className="mb-2">
-        <button className="btn btn-danger mr-2" onClick={this.endCombat}>End Combat</button>
-        <button className="btn" onClick={this.advanceCombat}><i className="fas fa-arrow-down" /> Advance</button>
+        <button className="btn btn-danger mr-2 mt-2" onClick={this.endCombat}>End Combat</button>
+        <button className="btn mt-2" onClick={this.advanceCombat}><i className="fas fa-arrow-down" /> Advance</button>
       </div>
     );
 
