@@ -51,7 +51,7 @@ class InitiativeTracker extends Component {
       this.setState({
         entries,
         inputId: this.state.inputId + 1,
-        activeIndex: this.state.activeIndex + 1
+        activeIndex: this.state.activeIndex + 1,
       });
     }
     else {
